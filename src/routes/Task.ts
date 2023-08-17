@@ -25,7 +25,7 @@ router.post("/addTask", async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User doesn't exists." });
   }
-  const newTask = new TaskModel({ title, description, dueDate, status });
+  const newTask = new TaskModel({ title, description, dueDate, status, user: user._id });
   try {
     await newTask.save();
     user.tasks.push(newTask._id);

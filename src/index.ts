@@ -7,23 +7,19 @@ import { userRouter } from "./routes/User.js";
 import { TaskRouter } from "./routes/Task.js";
 
 dotenv.config();
-
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+};
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://localhost:5173",
-    credentials: true,
-  })
-);
 app.use(cookieParser());
 app.use("/User", userRouter);
 app.use("/Task", TaskRouter);
 
-// Connect to MongoDB
 mongoose.connect(process.env.DATABASE);
 
-// Check if the connection was successful
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
 });

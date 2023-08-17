@@ -1,10 +1,9 @@
-import cors from 'cors';
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const router = express.Router();
 import { UserModel } from "../models/User.js";
-router.post("/signUp", cors(), async (req, res) => {
+router.post("/signUp", async (req, res) => {
     const { name, email, password } = req.body;
     const user = await UserModel.findOne({ email });
     if (user) {

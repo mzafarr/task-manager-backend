@@ -13,7 +13,7 @@ router.get("/showTasks", async (req, res) => {
     }
     const userTasks = await TaskModel.find({user: user._id})
     console.log(userTasks)
-    res.status(200).json({ userTasks });
+    res.send(userTasks);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error." });

@@ -12,6 +12,7 @@ router.get("/showTasks", async (req, res) => {
       return res.status(404).json({ message: "User doesn't exists." });
     }
     const userTasks = await TaskModel.find({user: user._id})
+    console.log(userTasks)
     res.status(200).json({ userTasks });
   } catch (error) {
     console.log(error);

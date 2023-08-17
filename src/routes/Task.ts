@@ -29,13 +29,13 @@ router.post("/addTask", async (req, res) => {
   const newTask = new TaskModel({ title, description, dueDate, status });
   try {
     await newTask.save();
-    const savedTask = await newTask.save();
-    user.tasks.push(savedTask._id);
+    user.tasks.push(newTask._id);
+    await user.save(); // Save the user after updating tasks
     return res
       .status(200)
-      .json({ message: "Task successfully added.", savedTask });
+      .json({ message: "Task successfully added.", newTask });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ message: "Server error." });
   }
 });

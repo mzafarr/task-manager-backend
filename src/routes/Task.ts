@@ -20,7 +20,7 @@ router.get("/showTasks", async (req, res) => {
   }
 });
 
-router.get("/addTask", async (req, res) => {
+router.post("/addTask", async (req, res) => {
   const { userEmail, title, description, dueDate, status } = req.body;
   const user = await UserModel.findOne({ email: userEmail });
   if (!user) {

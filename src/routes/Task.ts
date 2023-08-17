@@ -11,10 +11,8 @@ router.get("/showTasks", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User doesn't exists." });
     }
-    const userTasks = user.tasks;
-    if (userTasks.length === 0) {
-      return res.status(200).json({ message: "No remaining tasks." });
-    }
+    const userTasks = user.tasks  || [];
+
     res.status(200).json({ userTasks });
   } catch (error) {
     console.error(error);

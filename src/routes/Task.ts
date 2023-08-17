@@ -5,13 +5,13 @@ import { UserModel } from "../models/User.js";
 
 router.get("/showTasks", async (req, res) => {
   try {
-    const { userId } = req.body;
-    const user = await UserModel.findById(userId);
+    const { userEmail } = req.body;
+    const user = await UserModel.findOne({ email: userEmail });
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exists." });
     }
-    const userTasks = user.tasks  || [];
+    const userTasks = user.tasks || [];
 
     res.status(200).json({ userTasks });
   } catch (error) {
@@ -21,8 +21,8 @@ router.get("/showTasks", async (req, res) => {
 });
 
 router.get("/addTask", async (req, res) => {
-  const { userId, title, description, dueDate, status } = req.body;
-  const user = await UserModel.findById(userId);
+  const { userEmail, title, description, dueDate, status } = req.body;
+  const user = await UserModel.findOne({ email: userEmail });
   if (!user) {
     return res.status(404).json({ message: "User doesn't exists." });
   }

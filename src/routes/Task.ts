@@ -5,7 +5,7 @@ import { UserModel } from "../models/User.js";
 
 router.get("/showTasks", async (req, res) => {
   try {
-    const { userEmail } = req.body;
+    const { userEmail } = req.query;
     const user = await UserModel.findOne({ email: userEmail });
 
     if (!user) {
@@ -15,7 +15,7 @@ router.get("/showTasks", async (req, res) => {
 
     res.status(200).json({ userTasks });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({ message: "Server error." });
   }
 });

@@ -7,12 +7,9 @@ import { userRouter } from "./routes/User.js";
 import { TaskRouter } from "./routes/Task.js";
 
 dotenv.config();
-const corsOptions = {
-  origin: "*",
-  credentials: true,
-};
+
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/User", userRouter);

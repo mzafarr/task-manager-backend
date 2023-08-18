@@ -29,7 +29,7 @@ router.post("/signIn", async (req, res) => {
             .json({ message: "email/username or password is incorrect" });
     }
     const token = jwt.sign({ id: user._id }, "secret");
-    res.json({ token, userID: user._id });
+    res.json({ token, userEmail: user.email });
 });
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;

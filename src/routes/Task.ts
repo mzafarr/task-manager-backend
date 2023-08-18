@@ -47,13 +47,41 @@ router.post("/addTask", async (req, res) => {
 
 router.delete("/deleteTask/:title", async (req, res) => {
   const { title } = req.params;
-  const userId = req.query.userId;
+  const userEmail = req.query.userEmail;
   try {
-    await TaskModel.findOneAndDelete({ title: title, user: userId });
+    await TaskModel.findOneAndDelete({ title: title, user: userEmail });
     res.send("Task deleted successfully");
   } catch (err) {
     console.log(err);
     res.status(500).send("Server Error");
   }
 });
+
+router.put("/updateStatus/:title", async (req, res) => {
+  try {
+    const { userEmail, newStatus } = req.body;
+    const taskTitle = req.query.title;
+
+    const updatedTask = await TaskModel.findOneAndUpdate(
+      { title: taskTitle, user: userEmail },
+      {
+        status: newStatus,
+      },
+      { new: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: "Password not found" });
+    }
+
+    res.json({
+      message: "Password updated successfully",
+      password: updatedTask,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 export { router as TaskRouter };

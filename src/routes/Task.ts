@@ -12,8 +12,9 @@ router.get("/showTasks", verifyToken, showTasks);
 
 router.post("/addTask", verifyToken, addTask);
 
-router.delete("/deleteTask/:title", verifyToken, deleteTask);
-
-router.put("/updateStatus/:title", verifyToken, updateStatus);
+router
+  .route("/:title")
+  .delete(verifyToken, deleteTask)
+  .put(verifyToken, updateStatus);
 
 export { router as TaskRouter };

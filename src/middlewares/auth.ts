@@ -1,9 +1,9 @@
-import { jwt } from 'jsonwebtoken';
+import { jwt } from "jsonwebtoken";
 
 const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    jwt.verify(authHeader, "secret", (err) => {
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err) => {
       if (err) {
         return res.sendStatus(403);
       }
